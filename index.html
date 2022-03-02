@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="https://kit.fontawesome.com/5bcd262c4d.js" crossorigin="anonymous"></script>
+	<style>
+
+	@import url('https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900');
+	*
+	{
+	  margin: 0;
+	  padding: 0;
+	  box-sizing: border-box;
+	  font-family: 'Poppins', sans-serif;
+
+
+	}
+	::-webkit-scrollbar
+	{
+	  width: 0;
+	}
+	#scrollPath
+	{
+	  position: fixed;
+	  top: 0;
+	  right: 0;
+	  width: 10px;
+	  height: 100%;
+	  background: rgba(255,255,255,0.05);
+
+	}
+	@keyframes animate {
+	  0%,100%
+
+	  {
+	    filter: hue-rotate(0deg);
+	  }
+	  50%
+	  	{
+	    filter: hue-rotate(360deg);
+	  	}
+
+	}
+	@keyframes glitch {
+		0% { text-shadow:
+		0.05em .025em 0 rgba(255, 0, 0, .75),
+		-0.025em -0.05em -.025em rgba(0, 255, 0, .75),
+		0.025em -0.05em 0 rgba(0, 0, 255, .75);
+
+	}
+		15% { text-shadow:
+		0.025em 0 .025em rgba(255, 0, 0, .75),
+		-0.025em 0.05em 0 rgba(0, 255, 0, .75),
+		-0.025em 0.05em -.025em rgba(0, 0, 255, .75);
+
+	}
+		50% { text-shadow:
+		0.05em 0 -.025em rgba(255, 0, 0, .75),
+		-0.025em 0em .05em rgba(0, 255, 0, .75),
+		0 -0.05em 0 rgba(0, 0, 255, .75);
+
+	}
+		100% { text-shadow:
+		0.025em 0 -0.05em rgba(255, 0, 0, .75),
+		-0.025em 0.05em 0 rgba(0, 255, 0, .75),
+		-0.025em 0.05em -0.025em rgba(0, 0, 255, .75);
+
+	}
+}
+	#progressBar
+	{
+	  position: fixed;
+	  top: 0;
+	  right: 0;
+	  width: 10px;
+
+	  background: linear-gradient(to top, #008aff,#00ffe7);
+	  animation: animate 5s linear infinite;
+	}
+
+	#progressBar:before
+	{
+	  Content: '';
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  width: 100%;
+	  height: 100%;
+	  background: linear-gradient(to top, #008aff,#00ffe7);
+	  filter: blur(10px);
+
+	}
+	#progressBar:after
+	{
+	  Content: '';
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  width: 100%;
+	  height: 100%;
+	  background: linear-gradient(to top, #008aff,#00ffe7);
+	  filter: blur(30px);
+	}
+	body
+	{
+
+	  min-height: 100vh;
+	  background: #010615;
+
+	}
+	.box
+	{
+	  position:relative;
+		border-radius: 25px;
+	  width: 300px;
+	  height: 300px;
+		display: flex;
+		flex-direction: row;
+		justify-content:space-between;
+		align-items:center;
+		padding-left: 60px;
+		float:left;
+	  margin:60px;
+	  background: #060c21;
+	  transition: 0.5s;
+
+
+	}
+	.box:hover
+	{
+	  height: 400px;
+		border-radius: 25px;
+
+	}
+	.box .imgBx
+	{
+	  position: absolute;
+		border-radius: 25px;
+	  top: 0;
+	  left: 0;
+	  width: 100%;
+	  height: 100%;
+	  padding: 10px;
+	  box-sizing: border-box;
+	}
+	.box .imgBx img
+	{
+	  max-width: 100%;
+	  opacity: 0.1;
+	  transition: 0.5s;
+		border-radius: 25px;
+
+	}
+	.box:hover .imgBx img
+	{
+	  opacity: 1;
+	}
+	.box:before
+	{
+	  content: '';
+	  position: absolute;
+	  top: -2px;
+	  left: -2px;
+	  right: -2px;
+	  bottom: -2px;
+	  background: #fff;
+	  z-index: -1;
+	}
+	.box:after
+	{
+	  content: '';
+	  position: absolute;
+	  top: -2px;
+	  left: -2px;
+	  right: -2px;
+	  bottom: -2px;
+	  background: #fff;
+	  z-index: -1;
+	  filter: blur(40px);
+	}
+	.box:before,
+	.box:after
+	{
+	  background: linear-gradient(235deg,#89ff00,#010615,#00bcd4);
+		border-radius: 25px;
+	}
+	.box:nth-child(2):before,
+	.box:nth-child(2):after
+	{
+	  background: linear-gradient(235deg,#ff005e,#010615,#fbff00);
+		border-radius: 25px;
+	}
+	.box:nth-child(3):before,
+	.box:nth-child(3):after
+	{
+	  background: linear-gradient(235deg,#772aff,#010615,#0196f3);
+		border-radius: 25px;
+	}
+	.box .content
+	{
+	  position: absolute;
+	  bottom:0;
+	  left: 10px;
+	  right: 10px;
+	  bottom: 10px;
+	  height: 90px;
+	  background: rgba(0, 0, 0, 0.4);
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  text-align: center;
+	  opacity: 0;
+	  transition: 0.5s;
+
+	}
+	.box:hover .content
+	{
+	  opacity: 1;
+	}
+	.box .content h2
+	{
+	  font-size: 20px;
+	  color: #fff;
+	  font-weight: 500;
+	  line-height: 20px;
+	  letter-spacing: 1px;
+	}
+	.box .content h2 span
+	{
+	  font-size: 14px;
+	  color: #fff;
+	  font-weight: 200;
+	  letter-spacing: 2px;
+	}
+
+		h1 {
+				font-family: sans-serif;
+				font-style: italic;
+				text-align: center;
+				font-size: 32px;
+				color: white;
+			}
+			h2 {
+					font-family: sans-serif;
+					font-style: normal;
+					text-align: center;
+					font-size: 24px;
+					color: White;
+
+				}
+					nav {
+								font-family: sans-serif;
+								font-style: normal;
+								text-align: center;
+								font-size: 18px;
+								color: white
+								border: 2px solid black;
+							}
+							h4 {
+									font-family: sans-serif;
+									font-style: normal;
+									text-align: left;
+									font-size: 18px;
+									color: White;
+									border: 2px solid black;
+									padding-top: 15px;
+									padding-bottom: 15px;
+									padding-left: 10px;
+									padding-right: 5px;
+
+
+								}
+								ul {
+
+										font-family: sans-serif;
+										font-style: normal;
+										text-align: left;
+										font-size: 18px;
+										color: black;
+
+
+									}
+									h3 {
+											font-family: sans-serif;
+											font-style: normal;
+											text-align: center;
+											font-size: 18px;
+											color: White
+										}
+										p {
+												text-indent: 20px;
+											}
+												body{
+														color: white;
+														background-color: #000035;
+													}
+													header img{
+														float:left;
+														margin-right: 5px;
+														height: 150px;
+														width: 150px;
+
+													}
+
+													article{
+														margin: 40px;
+														background-color: white;
+														border: 2px solid black;
+														border-radius: 25px;
+														border-left: 40px;
+														border-spacing: 40px;
+														padding-top: 15px;
+														padding-bottom: 15px;
+														padding-left: 60px;
+														padding-right: 20px;
+
+
+
+													}
+													footer{
+
+														float: left;
+
+													}
+													h5 {
+														margin: 40px;
+															font-family: sans-serif;
+															font-style: normal;
+															text-align: left;
+															font-size: 20px;
+															color: black;
+															border: 2px solid black;
+															border-radius: 25px;
+															padding-top: 15px;
+															padding-bottom: 15px;
+															padding-left: 20px;
+															padding-right: 20px;
+															float:left;
+															width: 40rem;
+															background-color: white;
+														}
+														aside{
+															background-color: white;
+
+														}
+															section{
+																float: left;
+
+															}
+
+
+
+														}
+													.poop{
+														position: relative;
+
+														left: 30px;
+													}
+													.poop2{
+														position: relative;
+														left: 30px;
+													}
+													.poop3{
+														position: relative;
+														left: 30px;
+													}
+													.poop4{
+														position: relative;
+														left: 15px;
+													}
+													.poop5{
+														position: relative;
+														left: 15px;
+													}
+													.poop6{
+														position: relative;
+														left: 15px;
+													}
+													.coverphoto{
+														margin: 40px;
+														float:right;
+														position: relative;
+														border: 2px solid black;
+														border-radius: 25px;
+														top: 30px;
+														right: 10px;
+
+														left: 0px;
+													}
+													.farts{
+														clear: left;
+													}
+													.farts2 {
+														margin: 40px;
+														background-color: White;
+														border: 2px solid black;
+														border-radius: 25px;
+														padding-top: 15px;
+														padding-bottom: 15px;
+														padding-left: 60px;
+														padding-right: 20px;
+
+													}
+													.cards {
+														display: grid;
+														grid-template-columns: 400px 400px 400px;
+														grid-template-rows: 150px 150px 150px;
+														padding-left: 60px;
+
+
+													}
+													.scrolly
+													{
+													  position: relative;
+													  width: 100%;
+													  height: 100vh;
+													  overflow: hidden;
+													  display: flex;
+													  justify-content: center;
+													  align-items: center;
+													}
+													.scrolly:before
+													{
+													  content: '';
+													  position: absolute;
+													  bottom: 0px;
+													  width: 100%;
+													  height: 100%;
+													  background: linear-gradient(to top, transparent);
+													  z-index: 10000;
+													}
+													.scolly:after
+													{
+													  content: '';
+													  position: absolute;
+													  top: 0;
+													  left: 0;
+													  width: 100%;
+													  height: 100%;
+
+													  z-index: 10000;
+													  mix-blend-mode: color;
+													}
+													.scrolly img
+													{
+													  position: absolute;
+													  top: 0;
+													  left: 0;
+													  width: 100%;
+													  height: 100%;
+													  object-fit: cover;
+													  pointer-events: none;
+
+													}
+													#text
+													{
+													  position: relative;
+													  color: #fff;
+													  font-size: 10em;
+													  z-index:1;
+													}
+													#road
+													{
+													  z-index: 2;
+													}
+													.obtain {
+
+  border: none;
+  background-color: purple;
+	border: 2px solid white;
+	border-radius: 25px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	padding-left: 20px;
+	padding-right: 20px;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+/* On mouse-over */
+.obtain:hover {background: #000;}
+
+.obtain {color: green;}
+
+.glitch
+{
+	text-shadow:
+		0.05em 0 0 rgba(255, 0, 0, .75),
+		-0.025em -0.05em 0 rgba(0, 255, 0, .75),
+		0.025em -0.05em 0 rgba(0, 0, 255, .75);
+
+	animation: glitch 2000ms infinite;
+
+}
+
+.socialtitle{
+
+	text-align: center;
+}
+.social-list {
+	list-style: none;
+	color: white;
+	margin: 40px;
+	text-align: center;
+
+}
+.poop69 {
+	margin: 10px 30px;
+	display: inline-block;
+	font-size: 60px;
+	padding: 20px 20px;
+	color: #fff;
+	border: solid 1px #fff;
+	border-radius: 50%;
+	transition: 5s;
+}
+.poop70 {
+	margin: 10px 30px;
+	display: inline-block;
+	font-size: 60px;
+	padding: 20px 20px;
+	color: #fff;
+	border: solid 1px #fff;
+	border-radius: 50%;
+	transition: 5s;
+}
+.poop69:hover {
+	color: #39FF14;
+	border: 1px solid #39FF14;
+	transition: .5s;
+
+}
+.poop70:hover {
+	color: #39FF14;
+	border: 1px solid #39FF14;
+	transition: .5s;
+
+}
+
+		</style>
+	<meta charset="utf-8">
+	<title>Bufalien Club - Home</title>
+
+		<div id=progressBar></div>
+		<div id=scrollPath></div>
+			<script>
+
+	//This alert needs to have functionality in actually verifying wallets
+			var WalletAddress;
+			WalletAddress = prompt("Please Enter Your Crypto Wallet Address Here: ");
+			var today = new Date();
+			var currentHour = today.getHours()
+			var message1 = currentHour < 12 ? "Good Day. Your Bufalien Club membership is confirmed. " : "Good Evening. Your Bufalien Club membership is confirmed. ";
+				alert(message1);
+			</script>
+
+</head>
+<body>
+	<section class="scrolly">
+		<img src="bg.jpg" id="bg">
+		<img src="moon.png" id="moon">
+		<img src="mountain.png" id="mountain">
+		<img src="road.png" id="road">
+		<h2 id="text" class="glitch"><em>Bufalien Club<em></h2>
+		</section>
+
+		<script type="text/javascript">
+
+		let bg = document.getElementById("bg");
+		let moon = document.getElementById("moon");
+		let mountain = document.getElementById("mountain");
+		let road = document.getElementById("road");
+		let text = document.getElementById("text");
+
+		window.addEventListener('scroll', function(){
+			var value = window.scrollY;
+
+			bg.style.top = value * 0.5 + 'px';
+			moon.style.left = -value * 0.5 + 'px';
+			mountain.style.top = -value * 0.15 + 'px';
+			road.style.top = value * 0.15 + 'px';
+			text.style.top = value * 1 + 'px';
+		})
+		</script>
+
+<header>
+	<img src="/Users/alexmiller/Desktop/Bufalien Club/Bufalien Website Development/Images/BAC logo tran.png" alt="Bufalien Club Logo"float:left;>
+	<h2 style="text-align: left; font-style: italic;"><strong>Bufalien Club</strong></h2></header>
+<hr>
+<nav style="text-align: left;">
+	<button class = "obtain" href="https://opensea.io/collection/bufalien"><h3>Obtain A Bufalien Here</h3></button>
+
+</nav>
+<hr>
+<h1><strong>What is a Bufalien?</strong></h1>
+<p>
+	<img src="/Users/alexmiller/Desktop/Bufalien Club/Bufalien Website Development/Images/6653.png" alt="Bufalien #6653"style="height: 450px; width: 450px" class="coverphoto"><br>
+<p>
+<aside>
+	<h5>
+<p>
+Bufalien Club is a collection of 10,000 randomly generated NFTs on the Polygon blockchain created by an NFT development group called The Middle Schoolers.<br> <p>Our goal is to build a culture out of the intelligent gentle giant that Bufalien is. His image represents tranquility, being wise beyond his years, having unmatched strength, and habits that reflect profound generosity. These are the values that reflect on each Bufalien in the collection.<br>
+<p>
+Not only do we want to spread these positive attribute to the new world of web 3.0, we want to make this kind of community available to anyone and everyone.<br><p>For the universally affordable price of 0.005 ETH, you'll obtain a unique Bufalien NFT that not only connects you with a growing community of Bufaliens, but also grants you exclusive access to IRL & Non-IRL events, NFT-specific merch, and news about our next big project: An NFT-inclusive Mars Colonization game featuring Bufalien. </h5>
+</aside>
+<br>
+<h1 class="farts">Things to Love About Bufaliens</h1>
+<p>
+	<div class="box"style=clear:left;>
+			<div class="imgBx">
+				<img src="/Users/alexmiller/Desktop/Bufalien Club/Bufalien Website Development/Images/donated.png">
+			</div>
+					<div class="content">
+						<h2>Charitable Cause<br><span>50% of all proceeds generated by the purchase of a Bufalien NFT goes straight to charity.</span></h2>
+					</div>
+	</div>
+
+		<div class="box">
+				<div class="imgBx">
+					<img src="/Users/alexmiller/Desktop/Bufalien Club/Bufalien Website Development/Images/6493.png">
+				</div>
+						<div class="content">
+							<h2>Exclusive Perks<br><span>As an owner, you're entitled to free NFTs, free merch, and premium access to Bufalien mobile games. </span></h2>
+						</div>
+		</div>
+			<div class="box">
+					<div class="imgBx">
+						<img src="/Users/alexmiller/Desktop/Bufalien Club/Bufalien Website Development/Images/rare.png">
+					</div>
+							<div class="content">
+								<h2>Collectible<br><span>There are thousands of Bufaliens! Only a few have rare accessories, which could come with unique prizes.</span></h2>
+							</div>
+			</div>
+<p>
+<h1 class="farts">Why Should You Club With Us?</h1>
+<article1>
+<ul class="farts2">
+	<li>Become a part of an art centered charity-giving community</li>
+	<p>
+	<li>Exciting IRL & Web Events</li>
+	<p>
+	<li>Exclusive (and sometimes free) Merch</li>
+	<p>
+	<li>Members will get FREE transfers of New NFTs from the collections released into the Bufalien Metaverse</li>
+	<p>
+	<li>Future release of an NFT-inclusive Bufalien Mobile Game</li>
+</ul>
+<p>
+</article1>
+<p>
+<div>
+	<h1 class="Roadmap">Bufalien Roadmap</h1>
+	<hr>
+	<h2>Q1 - 2022</h2>
+	<h3>Release the first 10,000 Bufaliens into the world.</h3>
+	<br>
+	<p>
+		<h2>20% of all Bufaliens Found a Home</h2>
+		<h3>When this milestone is achieved we will:</h3>
+</div>
+<article>
+<ul>
+	<li>Donate 10 ETH worth of funds as a tuition scholarship to a graphic design or digital art student. Determined by application.</li>
+<br>
+	<li>Send out free merch to all Bufalien owners. You'll have the choice to get your own unique NFT on a hat, shirt, or beanie.</li>
+<br>
+	<li>Hold the first digital art contest sponsored by Bufalien. Artists will be encouraged to submit their own art to be considered one of the next scholarship recievers and a chance to have your art chosen as the next NFT line to be released by The Middle Schoolers.</li>
+</ul>
+</article>
+<p>
+	<h2>40% of all Bufaliens Found a Home</h2>
+	<h3>When this milestone is achievedwe will:</h3>
+	<article>
+	<ul>
+		<li>All of the above all over again! Plus....</li>
+<br>
+		<li><b>Sponsor an IRL 6-hour long punk rock music event in St. Augustine, Florida. You'll be able to attend with your Bufalien NFT or pay the fee at the door. All door fees will be sent in an envelope to the St. Jude Children's Hospital Foundation as a donation.</b></li>
+	</ul>
+</article>
+	<p>
+		<h2>60% of all Bufaliens Found a Home</h2>
+		<h3>When this milestone is achieved we will:</h3>
+		<article>
+		<ul>
+			<li>All of the above all over again! Plus....</li>
+	<br>
+			<li><b>The Middle Schoolers (the founding group of Bufalien) will host an Instagram/FB/YouTube live concert event centered around significant artists in music & digital art. </b></li>
+		</ul>
+	</article>
+		<p>	<h2>80% of all Bufaliens Found a Home</h2>
+			<h3>When this milestone is achieved we will:</h3>
+				<article>
+			<ul>
+				<li>All of the above all over again! Plus....</li>
+		<br>
+				<li><b>The Release of Colonization - The Bufalien Story on iOS and Google Play stores. Every Bufalien NFT owner will be able to play as their own Bufalien while helping humanity become an interplanetary species.</b></li>
+			</ul>
+		</article>
+			<p>	<h2>100% of all Bufaliens Found a Home</h2>
+				<h3>When this milestone is achieved we will:</h3>
+				<article>
+				<ul>
+					<li>All of the above all over again! Plus....</li>
+
+			<br>
+<p>
+					<li><b>The announcement of our next official NFT collection release.<br><p>The NFT will not be designed by The Middle Schoolers, but selected from the pool of winners from the past 4 digital art contests they hosted as milestones were achieved.</b></li>
+			</ul>
+		</article>
+				<br>
+				<h2 class= "socialtitle"> Follow Our Progress On The Socials </h2>
+				<div class=media>
+					<ul class="social-list">
+						<li class="poop69"><i class="fa-brands fa-twitter" aria-hidden="true" href="https://twitter.com/bufalien1"></i></li>
+						<li class=poop70><i class="fa-brands fa-instagram" aria-hidden="true" href="https://www.instagram.com/bufalien/"></i></li>
+					</ul>
+				</div>
+					<br>
+<h2>The Middle Schoolers - The Team Behind The Dream</h2>
+
+
+	<div class="box"style=clear:left;>
+			<div class="imgBx">
+				<img src="/Users/alexmiller/Desktop/Bufalien Club/Bufalien Website Development/Images/P1020155.jpg">
+			</div>
+					<div class="content">
+						<h2>Alex Miller<br><span>Illustration, 3D animation, & Web development</span></h2>
+					</div>
+	</div>
+
+		<div class="box">
+				<div class="imgBx">
+					<img src="/Users/alexmiller/Desktop/Bufalien Club/Bufalien Website Development/Images/Screen Shot 2022-02-26 at 10.01.36 AM.png">
+				</div>
+						<div class="content">
+							<h2>Aaron Lopez<br><span>Game development, Social media management, meme daddy</span></h2>
+						</div>
+		</div>
+			<div class="box">
+					<div class="imgBx">
+						<img src="/Users/alexmiller/Desktop/Bufalien Club/Bufalien Website Development/Images/010.png">
+					</div>
+							<div class="content">
+								<h2>Mikey Pratzikos<br><span>Creative Supervisor</span></h2>
+							</div>
+			</div>
+<p>
+<hr><br>
+<footer><br>
+</footer>
+<script type="text/javascript">
+//I can't get this shit to work right for the life of me
+	let progress= document.getElementById("progressBar");
+	let totalHeight = document.body.scrollHeight - window.innerHeight;
+	window.onscroll = function(){
+		let progressHeight = (window.pageYOffset / totalHeight) * 100;
+		progress.style.height = progressHeight + "%";
+	}
+</script>
+</body>
+<html>
